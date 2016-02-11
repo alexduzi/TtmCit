@@ -13,8 +13,7 @@ class Divergence(object):
         self.code_divergence = int(code_divergence)
         self.name_divergence = name_divergence
         self.acronym_divergence = acronym_divergence
-        self.number_order = number_order
-        print self.number_order
+        self.number_order = int(number_order)
         
     def __str__(self):
         return "{} {} {} {}".format(self.code_divergence,
@@ -44,11 +43,11 @@ class Ttm(object):
 
 
 def get_ttms(dates):
-    return [Ttm(datetime.datetime.strptime(date.strip().split('|')[0], DATETIME_FORMAT), 
-                Divergence(date.split('|')[1], 
-                           date.split('|')[2], 
-                           date.split('|')[3],
-                           date.split('|')[4])) 
+    return [Ttm(datetime.datetime.strptime(date.strip().split(';')[0], DATETIME_FORMAT), 
+                Divergence(date.split(';')[1], 
+                           date.split(';')[2], 
+                           date.split(';')[3],
+                           date.split(';')[4])) 
             for date in dates]
 
 
@@ -59,17 +58,18 @@ def send_ttm_to_server(ttm):
 					 "divergence" : ttm.divergence.to_dict(),
 					 "textEmployeeComment" : ttm.comment
 				   }
-        # req = urllib2.Request('http://ttm.ciandt.com/occurrence')
-        # req.add_header('Content-Type', 'application/json')
-        # response = urllib2.urlopen(req, json.dumps(ttm_dict))
+        req = urllib2.Request('http://ttm.ciandt.com/occurrence')
+        req.add_header('Content-Type', 'application/json')
+        response = urllib2.urlopen(req, json.dumps(ttm_dict))
         print json.dumps(ttm_dict)
+        print response
         
 
 
 def main():
     dates_from_file = []
     with open('hours.txt', 'r') as fh:
-        for line in fh.readlines():
+        for line in fh:
             dates_from_file.append(line.strip())
 
     ttms = get_ttms(dates_from_file)
