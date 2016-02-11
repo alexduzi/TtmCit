@@ -1,0 +1,27 @@
+[
+
+{
+
+    "codeDivergence": ​1,
+    "nameDivergence": "Check-In",
+    "acronymDivergence": "CI",
+    "numberOrder": ​1
+
+},
+{
+
+    "codeDivergence": ​2,
+    "nameDivergence": "Check-Out",
+    "acronymDivergence": "CO",
+    "numberOrder": ​2
+
+},
+
+    {
+        "codeDivergence": ​3,
+        "nameDivergence": "Check-Double",
+        "acronymDivergence": "CD",
+        "numberOrder": ​3
+    }
+
+]
